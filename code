@@ -1,0 +1,65 @@
+import pygame
+pygame.init()
+
+def redrawGamewindow():
+	win.blit(fundo2, (0,0))
+	kevin.draw(win)
+
+	pygame.display.update()
+
+fundo2 = pygame.image.load('fundo2.png')
+class player(object):
+	def __init__ (self, x, y, width, height):
+		self.x = x
+		self.y = y
+		self.width = width
+		self.height = height
+		self.vel = 5
+		self.left = False
+		self.right = False
+		self.walkCount = 0
+	def draw( self, win):
+		if self.walkCount + 1 >= 27:
+            self.walkCount = 0
+
+        if self.left:
+            win.blit(walkLeft[self.walkCount//3], (self.x,self.y))
+            self.walkCount += 1
+        elif self.right:
+            win.blit(walkRight[self.walkCount//3], (self.x,self.y))
+            self.walkCount +=1
+        else:
+            win.blit(char, (self.x,self.y))
+
+kevin = player(300, 410, 50, 40)
+kkk = pygame.image.load('fundo2.png')
+win = pygame.display.set_mode((900,451))
+pygame.display.set_caption('THE GAME')
+running = True
+while running:
+	pygame.time.delay(10)
+	for event in pygame.event.get():
+		if event.type == pygame.QUIT:
+			running = False
+	
+	keys = pygame.key.get_pressed()
+
+	if keys[pygame.K_LEFT] and x > kevin.vel - 5:
+		x -= kevin.vel
+		
+	if keys[pygame.K_RIGHT] and x < 900 - kevin.width - vel + 5:
+		x += kevin.vel
+
+	if keys[pygame.K_UP] and y > kevin.vel - 5:
+		y -= kevin.vel
+
+	if keys[pygame.K_DOWN] and y < 500 - kevin.height - vel + 5:
+		y += kevin.vel
+
+	
+	redrawGamewindow()
+
+
+
+
+pygame.quit()
